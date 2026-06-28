@@ -1,0 +1,6 @@
+{
+  "name": "Nexus AI",
+  "description": "An AI-powered smart learning and quiz app powered by Gemini. Features AI tutors, weakness detection, dynamic generation, and smart revision.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

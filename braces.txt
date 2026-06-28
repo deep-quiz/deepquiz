@@ -1,0 +1,76 @@
+17:sealed interface QuizScreen {
+43:}
+56:class QuizViewModel(private val repository: QuizRepository) : ViewModel() {
+64:    init {
+65:        viewModelScope.launch {
+68:        }
+69:    }
+83:    ) { list, statsEntity ->
+84:        if (list.isEmpty()) {
+91:        } else {
+97:            list.forEach { res ->
+101:                if (res.score > currentHigh) {
+103:                }
+104:            }
+106:            val accuracy = if (totalQuestions > 0) {
+108:            } else {
+110:            }
+122:        }
+123:    }.stateIn(
+145:    fun togglePause() {
+147:        if (isPaused) {
+149:        } else {
+151:        }
+153:    }
+155:    private fun startTimer() {
+158:        timerJob = viewModelScope.launch {
+159:            while (timeRemaining > 0 && !isAnswered) {
+163:            }
+164:            if (timeRemaining == 0 && !isAnswered) {
+169:            }
+170:        }
+171:    }
+173:    fun useFiftyFifty() {
+178:        val wrongIndices = currentQuestion.options.indices.filter { it != correctIndex }.shuffled()
+181:    }
+183:    fun useSkip() {
+187:        if (currentQuestionIndex < activeQuestionsList.lastIndex) {
+191:        } else {
+193:        }
+194:    }
+196:    private fun resetForNextQuestion() {
+201:    }
+203:    fun startQuiz(category: String) {
+204:        viewModelScope.launch {
+220:        }
+221:    }
+223:    fun selectOption(optionIndex: Int) {
+232:        if (isCorrect) {
+235:        } else {
+237:            viewModelScope.launch {
+239:            }
+240:        }
+246:    }
+248:    fun nextQuestion() {
+251:        if (currentQuestionIndex < activeQuestionsList.lastIndex) {
+255:        } else {
+257:        }
+258:    }
+260:    private fun finishQuiz() {
+276:            viewModelScope.launch {
+292:                if (finalScore == finalTotal) {
+294:                } else {
+296:                }
+313:            }
+314:        }
+316:    fun quitQuiz() {
+318:    }
+320:    fun clearStats() {
+321:        viewModelScope.launch {
+323:        }
+324:    }
+326:    private fun updateActiveQuizState() {
+327:        if (currentQuestionIndex in activeQuestionsList.indices) {
+342:        }
+343:    }
+344:}
